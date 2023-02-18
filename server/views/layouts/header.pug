@@ -1,0 +1,45 @@
+// ***** Preloader Start *****
+#js-preloader.js-preloader
+  .preloader-inner
+    span.dot
+    .dots
+      span
+      span
+      span
+// ***** Preloader End *****
+// ***** Header Area Start *****
+header.header-area.header-sticky
+  .container
+    .row
+      .col-12
+        nav.main-nav.d-flex.justify-content-center.w-100
+          ul.nav
+            li
+              if selected == 'home'
+                a.active(href='/') Inicio
+              else 
+                a(href='/') Inicio
+            li
+              if selected == 'about'
+                a.active(href='/about') Sobre nosotros
+              else 
+                a(href='/about') Sobre nosotros
+            li
+              if selected == 'deals'
+                a.active(href='/deals') Nuestros planes
+              else 
+                a(href='/deals') Nuestros planes
+            li
+              if selected == 'reservation'
+                a.active(href='/reservation') Reservaciones
+              else 
+                a(href='/reservation') Reservaciones
+            li
+              if selected == 'login/register'
+                a.active(href='/login') Sesión
+              else 
+                a(href='/login') Sesión
+          a.menu-trigger
+            span Menu
+          // ***** Menu End *****
+          // ***** Header Area End *****

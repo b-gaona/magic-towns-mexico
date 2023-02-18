@@ -1,0 +1,88 @@
+extends ./layouts/index
+
+block content 
+  .page-heading
+    .container
+      .row
+        .col-lg-12
+          h4 Conoce nuestros planes, servicios, y mucho más
+          h2 Lo mejor en calidad al mejor precio
+  //- .search-form
+    .container
+      .row
+        .col-lg-12
+          form#search-form(name='gs' method='submit' role='search' action='#')
+            .row
+              .col-lg-2
+                h4 Sort Deals By:
+              .col-lg-4
+                fieldset
+                  select#chooseLocation.form-select(name='Location' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Destinations
+                    option(type='checkbox' name='option1' value='Italy') Italy
+                    option(value='France') France
+                    option(value='Switzerland') Switzerland
+                    option(value='Thailand') Thailand
+                    option(value='Australia') Australia
+                    option(value='India') India
+                    option(value='Indonesia') Indonesia
+                    option(value='Malaysia') Malaysia
+                    option(value='Singapore') Singapore
+              .col-lg-4
+                fieldset
+                  select#choosePrice.form-select(name='Price' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Price Range
+                    option(value='100') $100 - $250
+                    option(value='250') $250 - $500
+                    option(value='500') $500 - $1,000
+                    option(value='1000') $1,000 - $2,500
+                    option(value='2500+') $2,500+
+              .col-lg-2
+                fieldset
+                  button.border-button Search Results
+  .weekly-offers
+    .container
+      .row
+        .col-lg-6.offset-lg-3
+          .section-heading.text-center
+            h2 Planes y servicios
+            p
+              | Te aseguramos los mejores precios y la mejor calidad en cada uno de nuestros servicios.
+    .container-fluid
+      .row
+        .col-lg-12
+          .owl-weekly-offers.owl-carousel
+            include ./layouts/plan.pug
+  .amazing-deals
+    .container
+      .row
+        .col-lg-6.offset-lg-3
+          .section-heading.text-center
+            h2 Ofertas por tiempo limitado
+            p
+              | Estas ofertas tienen vigencia, no están disponibles todo el año. Solo aplican a los pueblos mágicos que son mencionados.
+        include ./layouts/offer.pug
+  .call-to-action
+    .container
+      .row
+        .col-lg-8
+          h2 ¿Estás buscando viajar a algún pueblo mágico?
+          h4 ¡Nosotros te ayudamos a planificar el viaje!
+        .col-lg-4
+          .border-button
+            a(href='/reservation') Planificar ahora
+
+block script 
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  //- script(src='../build/js/wow.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    $(".option").click(function () {
+    $(".option").removeClass("active");
+    $(this).addClass("active");
+    });

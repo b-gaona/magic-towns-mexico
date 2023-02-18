@@ -1,0 +1,55 @@
+extends ./layouts/index
+
+block content 
+  div(style="height: 100vh; display: flex; flex-direction: column; justify-content: center;")
+    .container
+      .row.justify-content-center.align-items-center
+        .col-lg-9.text-center.mt-5
+          h1.heading(data-aos='fade-up').mb-3  Registrarse
+          nav(aria-label='breadcrumb' data-aos='fade-up' data-aos-delay='200')
+            ol.breadcrumb.text-center.justify-content-center
+              li.breadcrumb-item
+                a(href='/' style="color: #fff") Inicio
+              li.breadcrumb-item.active.text-white-50(aria-current='page')
+                a(href='/login') Iniciar sesión
+    .section
+      .container
+        .row
+          .col-lg-8(data-aos='fade-up' data-aos-delay='200' style='margin: 0 auto;')
+            form(action='#' method='POST')
+              .row(style='display:flex; justify-content:center;')
+                .col-7.mb-3
+                  input.form-control(type='text' placeholder='Tu nombre' name='name')
+                .col-7.mb-3
+                  input.form-control(type='text' placeholder='Tu apellido' name='lastname')
+                .col-7.mb-3
+                  input.form-control(type='text' placeholder='Tu nombre de usuario' name='username')
+                .col-7.mb-3
+                  input.form-control(type='email' placeholder='Tu correo' name='email')
+                .col-7.mb-3
+                  input.form-control(type='password' placeholder='Tu contraseña' name='password')
+                .col-7.mb-3
+                  input.form-control(type='password' placeholder='Confirma tu contraseña' name='password')
+                .col-7
+                  input.btn.btn-primary(style=' width:100%; ' type='submit' value='Iniciar sesión')
+
+block script
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  //- script(src='../build/js/wow.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    function bannerSwitcher() {
+    next = $('.sec-1-input').filter(':checked').next('.sec-1-input');
+    if (next.length) next.prop('checked', true);
+    else $('.sec-1-input').first().prop('checked', true);
+    }
+    var bannerTimer = setInterval(bannerSwitcher, 5000);
+    $('nav .controls label').click(function () {
+    clearInterval(bannerTimer);
+    bannerTimer = setInterval(bannerSwitcher, 5000)
+    });

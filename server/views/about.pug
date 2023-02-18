@@ -1,0 +1,88 @@
+extends ./layouts/index
+
+block content 
+  // ***** Main Banner Area Start *****
+  .about-main-content
+    .container
+      .row
+        .col-lg-12
+          .content
+            .blur-bg
+            h4 EXPLORA TODOS LOS PUEBLOS MÁGICOS DE MÉXICO
+            .line-dec
+            h2 Vive y disfruta de la magia de los atractivos pueblos mágicos de México
+            p
+              | Los pueblos mágicos son lugares que muestran la identidad nacional en cada uno de sus rincones, con una magia que emana de sus atractivos; visitarlos es una oportunidad para descubrir el encanto de México.
+            .main-button
+              a(href='/') Descubre más
+  // ***** Main Banner Area End *****
+  .cities-town
+    .container
+      .row
+        .slider-content
+          .row
+            .col-lg-12
+              h2
+                | Explora en México 
+                em Pueblos Mágicos
+            .col-lg-12
+              .owl-cites-town.owl-carousel
+                include ./layouts/card.pug
+  .more-about
+    .container
+      .row
+        .col-lg-6.align-self-center
+          .left-image
+            img(src='https://i.natgeofe.com/n/73d9e4e3-4884-4e93-ac41-6be6a90079f5/mexico-city-travel%20(1).jpg?w=2880&h=1920' alt='México')
+        .col-lg-6
+          .section-heading
+            h2 Descubre los lugares más memorables de México
+            p
+              | Aquí en "Viajes mágicos" te ayudamos a planificar el viaje de tus sueños a tu pueblo mágico favorito. No te preocupes por el transporte, comida, hospedaje. Vive la mejor de tus experiencias con nosotros.
+          .row
+            .col-lg-6
+              .info-item
+                h4 130+
+                span Total de pueblos mágicos
+            .col-lg-6
+              .info-item
+                h4 127,000,000+
+                span Población en México
+  .best-locations
+    .container
+      .row
+        .col-lg-6.offset-lg-3
+          .section-heading.text-center
+            h2 Pueblos mágicos para viajar en familia
+            p
+              | Nosotros compredemos el deseo de nuestros clientes, aquí te ofrecemos los mejores pueblos mágicos para explorar y disfrutar en familia.
+        .col-lg-8.offset-lg-2
+          .options
+            include ./layouts/familyTowns.pug
+        .col-lg-12
+          .main-button.text-center
+            a(href='/') Ver más pueblos mágicos
+  .call-to-action
+    .container
+      .row
+        .col-lg-8
+          h2 ¿Estás buscando viajar a algún pueblo mágico?
+          h4 ¡Nosotros te ayudamos a planificar el viaje!
+        .col-lg-4
+          .border-button
+            a(href='/reservation') Planificar ahora
+
+block script 
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  //- script(src='../build/js/wow.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    $(".option").click(function () {
+    $(".option").removeClass("active");
+    $(this).addClass("active");
+    });

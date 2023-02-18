@@ -1,0 +1,92 @@
+extends ./layouts/index
+
+block content 
+  .second-page-heading
+    .container
+      .row
+        .col-lg-12
+          h4 ¡Que no te ganen el lugar!
+          h2 Realiza Tu Reservación
+          p
+            | El precio de la reservación varía dependiendo del nivel de plan que hayas seleccionado. Una vez hayas realizado la reservación, en cuestión de 5-10 días hábiles se te mandará el itinerario del viaje al destino que hayas seleccionado.
+  .more-info.reservation-info
+    .container
+      .row
+        .col-lg-4.col-sm-6
+          .info-item
+            i.fa.fa-phone
+            h4 Llámanos al teléfono
+            a(href='#') +52 899 124 9960
+        .col-lg-4.col-sm-6
+          .info-item
+            i.fa.fa-envelope
+            h4 Contáctanos por correo
+            a(href='#') brandongaona03@hotmail.com
+        .col-lg-4.col-sm-6
+          .info-item
+            i.fa.fa-map-marker
+            h4 Visita nuestras oficinas
+            a(href='#') Paseo de la Reforma #153, CDMX
+  .reservation-form
+    .container
+      .row
+        .col-lg-12
+          #map
+            iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth' width='100%' height='450px' frameborder='0' style='border:0; border-top-left-radius: 23px; border-top-right-radius: 23px;' allowfullscreen='')
+        .col-lg-12
+          form#reservation-form(name='gs' method='submit' role='search' action='#')
+            .row
+              .col-lg-12
+                h4
+                  | Realiza Tu 
+                  em Reservación 
+                  |  Mediante Este 
+                  em Formulario 
+              .col-lg-6
+                fieldset
+                  label.form-label(for='Name') Tu nombre
+                  input.Name(type='text' name='Name' placeholder='Ejemplo: Juan Pérez' autocomplete='on' required='')
+              .col-lg-6
+                fieldset
+                  label.form-label(for='Number') Tu número de teléfono
+                  input.Number(type='text' name='Number' placeholder='Ejemplo: 899 225 6587' autocomplete='on' required='')
+              .col-lg-6
+                fieldset
+                  label.form-label(for='chooseGuests') Número de integrantes
+                  select#chooseGuests.form-select(name='Guests' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Ejemplo: 3 o 4 o 5
+                    option(type='checkbox' name='option1' value='1') 1
+                    option(value='2') 2
+                    option(value='3') 3
+                    option(value='4+') 4+
+              .col-lg-6
+                fieldset
+                  label.form-label(for='Number') Fecha de registro (inicio)
+                  input.date(type='date' name='date' required='')
+              .col-lg-12
+                fieldset
+                  label.form-label(for='chooseDestination') Escoge tu destino
+                  select#chooseCategory.form-select(name='Destination' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Ejemplo: Switzerland, Lausanne
+                    option(value='Italy, Roma') Italy, Roma
+                    option(value='France, Paris') France, Paris
+                    option(value='Engaland, London') Engaland, London
+                    option(value='Switzerland, Lausanne') Switzerland, Lausanne
+              .col-lg-12
+                fieldset
+                  button.main-button Haz tu reservación ahora
+
+block script 
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  //- script(src='../build/js/wow.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    $(".option").click(function () {
+    $(".option").removeClass("active");
+    $(this).addClass("active");
+    });

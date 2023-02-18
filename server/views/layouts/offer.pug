@@ -1,0 +1,22 @@
+each deal in limitedDeals
+  .col-lg-6.col-sm-6
+    .item
+      #{deal.a}
+      .row
+        .col-lg-6
+          .image(style='height: 100%;')
+            div(style=`background-image: linear-gradient(rgba(0,0,0, 0.3) 0%, rgba(0,0,0, 0.3) 100%), url('${deal.image}'); height: 100%; background-size: cover; background-position: center;`)
+        .col-lg-6.align-self-center
+          .content
+            span.info *#{deal.limit}
+            h4 #{deal.magicTown}
+            .row
+              .col-6
+                i.fa.fa-clock
+                span.list #{deal.nDays} Días
+              .col-6
+                i.fa.fa-map
+                span.list Visitas turísticas
+            p #{deal.description}
+            .main-button
+              a(href='/reservation') Reserva Ahora

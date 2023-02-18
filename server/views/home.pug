@@ -1,0 +1,93 @@
+extends ./layouts/index
+
+block content 
+  section#section-1
+    .content-slider
+      input#banner1.sec-1-input(type='radio' name='banner' checked='')
+      input#banner2.sec-1-input(type='radio' name='banner')
+      input#banner3.sec-1-input(type='radio' name='banner')
+      input#banner4.sec-1-input(type='radio' name='banner')
+      .slider
+        include ./layouts/banner.pug
+      nav
+        .controls
+          label(for='banner1')
+            span.progressbar
+              span.progressbar-fill
+            span.text 1
+          label(for='banner2')
+            span.progressbar
+              span.progressbar-fill
+            span.text 2
+          label(for='banner3')
+            span.progressbar
+              span.progressbar-fill
+            span.text 3
+          label(for='banner4')
+            span.progressbar
+              span.progressbar-fill
+            span.text 4
+  // ***** Main Banner Area End *****
+  .visit-country
+    .container
+      .row
+        .col-lg-5
+          .section-heading
+            h2 Visita uno de nuestros pueblos mágicos ahora!
+            p#visit-heading
+              | Un Pueblo Mágico es un sitio con símbolos y leyendas, poblados con historia que en muchos casos han sido escenario de hechos trascendentes para México.
+      .row
+        .col-lg-8
+          include ./layouts/magicTown.pug
+          .col-lg-12
+            ul.page-numbers
+              li
+                a(href='#visit-heading' data-page="1")
+                  i.fa.fa-arrow-left
+              li.active
+                a(href='#visit-heading' data-page="1") 1
+              li
+                a(href='#visit-heading' data-page="2") 2
+              li
+                a(href='#visit-heading' data-page="3") 3
+              li
+                a(href='#visit-heading' data-page="2")
+                  i.fa.fa-arrow-right
+        .col-lg-4
+          .side-bar-map
+            .row
+              .col-lg-12
+                p Mapa de los pueblos mágicos de México:
+                br 
+                #map(style = 'height: 600px; width: 100%;')
+                  
+  .call-to-action
+    .container
+      .row
+        .col-lg-8
+          h2 ¿Estás buscando viajar a algún pueblo mágico?
+          h4 ¡Nosotros te ayudamos a planificar el viaje!
+        .col-lg-4
+          .border-button
+            a(href='/reservation') Planificar ahora
+
+block script
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  //- script(src='../build/js/wow.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    function bannerSwitcher() {
+    next = $('.sec-1-input').filter(':checked').next('.sec-1-input');
+    if (next.length) next.prop('checked', true);
+    else $('.sec-1-input').first().prop('checked', true);
+    }
+    var bannerTimer = setInterval(bannerSwitcher, 5000);
+    $('nav .controls label').click(function () {
+    clearInterval(bannerTimer);
+    bannerTimer = setInterval(bannerSwitcher, 5000)
+    });

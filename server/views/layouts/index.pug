@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap")
+    link(rel="stylesheet" href="../../build/vendor/bootstrap/css/bootstrap.min.css")
+
+    link(rel="stylesheet" href="../../build/css/fontawesome.css")
+    link(rel="stylesheet" href="../../build/css/templatemo-woox-travel.css")
+    link(rel="stylesheet" href="../../build/css/owl.css")
+    link(rel="stylesheet" href="../../build/css/animate.css")
+    link(rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css")
+    title #{siteName} | #{page}
+  body(class= bodyClass)
+    include header
+    block content
+    include footer
+    block script
+    script(src='../../build/js/app.js')
+    script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyARAHcjsIIgCgDiP1W4ARujOM3oiammG9w&callback=initMap' async defer)

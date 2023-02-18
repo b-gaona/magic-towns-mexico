@@ -1,0 +1,19 @@
+each familyTown, key in familyTowns
+  if key == 0
+    .option.active(style=`background-image: linear-gradient(rgba(0,0,0, 0.2) 0%, rgba(0,0,0, 0.2) 100%), url(${familyTown.images[0]})`)
+      .shadow
+        .label
+          .icon
+            i.fas.fa-expand
+          .info
+            .main #{familyTown.magicTown}
+            .sub Población: #{familyTown.population}
+  else
+    .option(style=`background-image: linear-gradient(rgba(0,0,0, 0.2) 0%, rgba(0,0,0, 0.2) 100%), url(${familyTown.images[0]})`)
+      .shadow
+      .label
+        .icon
+          i.fas.fa-expand
+        .info
+          .main #{familyTown.magicTown}
+          .sub Población: #{familyTown.population}

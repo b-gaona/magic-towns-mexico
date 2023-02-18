@@ -1,0 +1,31 @@
+.items
+  .row
+    each magicTown in magicTowns
+      .col-lg-12
+        .item
+          .row
+            .col-lg-4.col-sm-5
+              .image(style='height: 100%;')
+                img(src=`${magicTown.images[0]}` alt=`${magicTown.magicTown}` style='height: 100%; object-fit: cover;')
+            .col-lg-8.col-sm-7
+              .right-content
+                h4 #{magicTown.magicTown.split(',')[0]}
+                span #{magicTown.state}, México
+                .main-button
+                  a(href=`${magicTown.wiki}` target="_blank" rel="noreferrer") Conocer más
+                p
+                  | #{magicTown.description}
+                ul.info
+                  li
+                    i.fa.fa-user
+                    |  #{magicTown.population} habitantes
+                  li
+                    i.fa.fa-globe
+                    |  La: #{magicTown.latitude}
+                  li
+                    i.fa.fa-globe
+                    |  Lo: #{magicTown.longitude}
+                .text-button
+                  a(href='/')
+                    | ¿Sabes cómo llegar? 
+                    i.fa.fa-arrow-right

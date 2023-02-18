@@ -1,0 +1,23 @@
+each plan in plans
+  .item
+    .thumb
+      img(src=`${plan.image}` alt='Imagen del lugar' style="min-height: 300px; height: 100%; object-fit: cover;")
+      .text
+        h4
+          | #{plan.type}
+          br
+          span
+            i.fa.fa-users
+            |  #{plan.checkIn} registros
+        h6
+          | $#{plan.price.toFixed(2)} USD
+          br
+          span /persona
+        .line-dec
+        ul
+          li Servicios incluidos:
+          each service in plan.include 
+            li
+              | &#x2022; #{service}
+        .main-button
+          a(href='/reservation') Reserva ahora
