@@ -72,7 +72,7 @@ block content
             a(href='/reservation') Planificar ahora
 
 block script
-  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyARAHcjsIIgCgDiP1W4ARujOM3oiammG9w&callback=initMap' async defer)
+  script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.API_KEY}&callback=initMap` async defer)
   script(src='../build/vendor/jquery/jquery.min.js')
   script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
   script(src='../build/js/isotope.min.js')
