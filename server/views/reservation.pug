@@ -16,12 +16,12 @@ block content
           .info-item
             i.fa.fa-phone
             h4 Llámanos al teléfono
-            a(href='#') +52 899 124 9960
+            a(href='tel:+52 899 124 9960') +52 899 124 9960
         .col-lg-4.col-sm-6
           .info-item
             i.fa.fa-envelope
             h4 Contáctanos por correo
-            a(href='#') brandongaona03@hotmail.com
+            a(href='mailto:brandongaona03@hotmail.com') brandongaona03@hotmail.com
         .col-lg-4.col-sm-6
           .info-item
             i.fa.fa-map-marker
@@ -31,11 +31,12 @@ block content
     .container
       .row
         .col-lg-12
-          #map
-            iframe(src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12469.776493332698!2d-80.14036379941481!3d25.907788681148624!2m3!1f357.26927939317244!2f20.870722720054623!3f0!3m2!1i1024!2i768!4f35!3m3!1m2!1s0x88d9add4b4ac788f%3A0xe77469d09480fcdb!2sSunny%20Isles%20Beach!5e1!3m2!1sen!2sth!4v1642869952544!5m2!1sen!2sth' width='100%' height='450px' frameborder='0' style='border:0; border-top-left-radius: 23px; border-top-right-radius: 23px;' allowfullscreen='')
+          #map(style='width: 100%; height: 500px; border:0; border-top-left-radius: 23px; border-top-right-radius: 23px;')
         .col-lg-12
-          form#reservation-form(name='gs' method='submit' role='search' action='#')
+          form#reservation-form(action='/reservation' method='POST')
             .row
+              if(message) 
+                .text-center.mb-3(style="color: #9b9691; font-size: 1.5rem;") #{message}
               .col-lg-12
                 h4
                   | Realiza Tu 
@@ -45,38 +46,52 @@ block content
               .col-lg-6
                 fieldset
                   label.form-label(for='Name') Tu nombre
-                  input.Name(type='text' name='Name' placeholder='Ejemplo: Juan Pérez' autocomplete='on' required='')
+                  if session 
+                    input(type="hidden" name="user_id" value=`${session.id}`)
+                    input.Name(type='text' name='name' value=`${session.name} ${session.lastname}` disabled)
+                  else
+                    input.Name(type='text' name='name' placeholder='Ejemplo: Juan Pérez' autocomplete='on' required='')
               .col-lg-6
                 fieldset
                   label.form-label(for='Number') Tu número de teléfono
-                  input.Number(type='text' name='Number' placeholder='Ejemplo: 899 225 6587' autocomplete='on' required='')
+                  input.Number(type='text' name='phone_number' placeholder='Ejemplo: 899 225 6587' autocomplete='on' required='')
               .col-lg-6
                 fieldset
                   label.form-label(for='chooseGuests') Número de integrantes
-                  select#chooseGuests.form-select(name='Guests' aria-label='Default select example' onchange='this.form.click()')
+                  select#chooseGuests.form-select(name='guests' aria-label='Default select example' onchange='this.form.click()')
                     option(selected='') Ejemplo: 3 o 4 o 5
-                    option(type='checkbox' name='option1' value='1') 1
+                    option(value='1') 1
                     option(value='2') 2
                     option(value='3') 3
-                    option(value='4+') 4+
+                    option(value='4') 4
+                    option(value='5') 5
+                    option(value='6') 6
+                    option(value='7') 7
+                    option(value='8') 8
               .col-lg-6
                 fieldset
                   label.form-label(for='Number') Fecha de registro (inicio)
-                  input.date(type='date' name='date' required='')
+                  input.date(type='date' name='check_in' required='')
               .col-lg-12
                 fieldset
                   label.form-label(for='chooseDestination') Escoge tu destino
-                  select#chooseCategory.form-select(name='Destination' aria-label='Default select example' onchange='this.form.click()')
-                    option(selected='') Ejemplo: Switzerland, Lausanne
-                    option(value='Italy, Roma') Italy, Roma
-                    option(value='France, Paris') France, Paris
-                    option(value='Engaland, London') Engaland, London
-                    option(value='Switzerland, Lausanne') Switzerland, Lausanne
+                  select#chooseCategory.form-select(name='magicTown' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Ejemplo: Lagos de Moreno, Jalisco
+                    each magicTown in magicTowns
+                      option(value=`${magicTown.magicTown}`) #{magicTown.magicTown}
+              .col-lg-12
+                fieldset
+                  label.form-label(for='chooseDestination') Escoge tu plan
+                  select#chooseCategory.form-select(name='plan_id' aria-label='Default select example' onchange='this.form.click()')
+                    option(selected='') Ejemplo: Básico
+                    each plan in plans
+                      option(value=`${plan.id}`) #{plan.plan}
               .col-lg-12
                 fieldset
                   button.main-button Haz tu reservación ahora
 
 block script 
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyARAHcjsIIgCgDiP1W4ARujOM3oiammG9w&callback=initMap' async defer)
   script(src='../build/vendor/jquery/jquery.min.js')
   script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
   script(src='../build/js/isotope.min.js')
@@ -85,6 +100,7 @@ block script
   script(src='../build/js/tabs.js')
   script(src='../build/js/popup.js')
   script(src='../build/js/custom.js')
+  script(src='../../build/js/app.js')
   script.
     $(".option").click(function () {
     $(".option").removeClass("active");

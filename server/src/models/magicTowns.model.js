@@ -21,7 +21,7 @@ function loadMagicTownsData() {
       //If it gets data, the results array will push it
       .on("data", async (data) => {
         saveMagicTown(data);
-        console.log(data.magicTown);
+        //console.log(data.magicTown);
       })
       .on("error", (error) => {
         console.log(error);

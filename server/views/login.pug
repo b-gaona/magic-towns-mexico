@@ -15,17 +15,18 @@ block content
     .section
       .container
         .row
+          if(message)
+            .text-center.mb-3 #{message}
           .col-lg-8(data-aos='fade-up' data-aos-delay='200' style='margin: 0 auto;')
-            form(action='#' method='POST')
-              .row(style='display:flex; justify-content:center;')
-                .col-7.mb-3
-                  input.form-control(type='text' placeholder='Tu nombre de usuario' name='username')
-                .col-7.mb-3
-                  input.form-control(type='email' placeholder='Tu correo' name='email')
-                .col-7.mb-3
-                  input.form-control(type='password' placeholder='Tu contraseña' name='password')
-                .col-7
-                  input.btn.btn-primary(style=' width:100%; ' type='submit' value='Iniciar sesión')
+            form(action="/login" method='POST' style='display:flex; justify-content:center;').row
+              .col-7.mb-3
+                input.form-control(type='text' placeholder='Tu nombre de usuario' name='username')
+              .col-7.mb-3
+                input.form-control(type='email' placeholder='Tu correo' name='email')
+              .col-7.mb-3
+                input.form-control(type='password' placeholder='Tu contraseña' name='password')
+              .col-7
+                input.btn.btn-primary(style=' width:100%; background-color: #22b3c1; ' type='submit' value='Iniciar sesión')
 
 block script
   script(src='../build/vendor/jquery/jquery.min.js')

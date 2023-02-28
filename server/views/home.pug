@@ -72,6 +72,7 @@ block content
             a(href='/reservation') Planificar ahora
 
 block script
+  script(src='https://maps.googleapis.com/maps/api/js?key=AIzaSyARAHcjsIIgCgDiP1W4ARujOM3oiammG9w&callback=initMap' async defer)
   script(src='../build/vendor/jquery/jquery.min.js')
   script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
   script(src='../build/js/isotope.min.js')
@@ -80,6 +81,7 @@ block script
   script(src='../build/js/tabs.js')
   script(src='../build/js/popup.js')
   script(src='../build/js/custom.js')
+  script(src='../../build/js/app.js')
   script.
     function bannerSwitcher() {
     next = $('.sec-1-input').filter(':checked').next('.sec-1-input');

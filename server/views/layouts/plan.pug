@@ -4,19 +4,19 @@ each plan in plans
       img(src=`${plan.image}` alt='Imagen del lugar' style="min-height: 300px; height: 100%; object-fit: cover;")
       .text
         h4
-          | #{plan.type}
+          | #{plan.plan}
           br
           span
             i.fa.fa-users
-            |  #{plan.checkIn} registros
+            |  #{plan.registered_people} registros
         h6
-          | $#{plan.price.toFixed(2)} USD
+          | $#{plan.price} USD
           br
           span /persona
         .line-dec
         ul
           li Servicios incluidos:
-          each service in plan.include 
+          each service in plan.services.split("#")
             li
               | &#x2022; #{service}
         .main-button

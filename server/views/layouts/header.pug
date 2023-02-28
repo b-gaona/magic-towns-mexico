@@ -34,11 +34,15 @@ header.header-area.header-sticky
                 a.active(href='/reservation') Reservaciones
               else 
                 a(href='/reservation') Reservaciones
-            li
-              if selected == 'login/register'
-                a.active(href='/login') Sesión
-              else 
-                a(href='/login') Sesión
+            if session
+              li 
+                a(href='/logout') Cerrar sesión
+            else
+              li
+                if selected == 'login/register'
+                  a.active(href='/login') Iniciar sesión
+                else 
+                  a(href='/login') Iniciar sesión
           a.menu-trigger
             span Menu
           // ***** Menu End *****
