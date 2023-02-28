@@ -36,7 +36,11 @@ function loadMagicTownsData() {
 }
 
 async function getAllMagicTowns({ skip, limit }) {
-  return await magicTowns.find({}, { _id: 0, _v: 0 }).skip(skip).limit(limit).sort({id: "asc"});
+  return await magicTowns
+    .find({}, { _id: 0, _v: 0 })
+    .skip(skip)
+    .limit(limit)
+    .sort({ id: "asc" });
 }
 
 async function saveMagicTown(town) {

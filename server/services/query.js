@@ -1,17 +1,17 @@
 const DEFAULT_PAGE_LIMIT = 0;
-const DEFAULT_PAGE_NUMBER = 1; 
+const DEFAULT_PAGE_NUMBER = 1;
 
-function getPagination({limit, page}) {
-  page = Math.abs(page) || DEFAULT_PAGE_NUMBER; 
+function getPagination({ limit, page }) {
+  page = Math.abs(page) || DEFAULT_PAGE_NUMBER;
   limit = Math.abs(limit) || DEFAULT_PAGE_LIMIT;
-  const skip = (page-1) * limit;
+  const skip = (page - 1) * limit;
 
   return {
     skip,
-    limit
+    limit,
   };
 }
 
 module.exports = {
-  getPagination
-}
+  getPagination,
+};

@@ -32,12 +32,12 @@ const magicTownsSchema = new mongoose.Schema({
   description: {
     type: String,
     required: false,
-    default: "Lorem"
+    default: "Lorem",
   },
   wiki: {
     type: String,
     required: true,
-  }
+  },
 });
 
 module.exports = mongoose.model("Magic-Town", magicTownsSchema);
