@@ -209,12 +209,12 @@ app.get("/checkout", async (req, res) => {
   const session = req.session.user || false;
   const reservation = req.query;
 
-  if(!session){
+  if (!session) {
     res.redirect("/");
   }
-  
-  const plan = await Plan.findOne({ where: { id: reservation.plan_id }});
-  
+
+  const plan = await Plan.findOne({ where: { id: reservation.plan_id } });
+
   res.render(path.join(__dirname, "views", "checkout.pug"), {
     siteName: "Descubre pueblos mágicos!",
     page: "Compra",

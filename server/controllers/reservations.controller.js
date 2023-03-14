@@ -29,7 +29,7 @@ const saveReservation = async (req, res) => {
     } catch (error) {
       message = "Verifique sus datos, error al reservar";
     }
-    return res.status(200).json({message});
+    return res.status(200).json({ message });
   }
 
   res.redirect("/reservation");
@@ -52,10 +52,12 @@ const validateReservation = (req, res) => {
     res.redirect("/reservation");
     return;
   }
-  res.redirect(url.format({
-    pathname: "/checkout",
-    query: req.body,
-  }));
+  res.redirect(
+    url.format({
+      pathname: "/checkout",
+      query: req.body,
+    })
+  );
   return;
 };
 
