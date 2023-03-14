@@ -1,0 +1,115 @@
+extends ./layouts/index
+
+block content 
+  .checkout-page-heading
+    .container.checkout
+      .row
+        .col-lg-12
+          h2 Proceder al pago 
+        .col-lg-12
+          h3 Información de la reservación
+      .row.checkout__info
+        .col-lg-6
+            div 
+              h5 Fecha de inicio: 
+              p #{reservation.check_in} 
+              h5 Pueblo mágico destino: 
+              p #{reservation.magicTown}
+              h5 Número de integrantes: 
+              p #{reservation.guests} 
+              h5 Teléfono: 
+              p #{reservation.phone_number}
+              
+        .col-lg-6
+          div 
+            h5 Plan seleccionado: 
+            p #{plan.plan}
+            h5 Precio del plan: 
+            p #{plan.price} USD
+            h5 Servicios incluidos: 
+              ul
+                each service in plan.services.split("#")
+                  li 
+                    p #{service}
+        .col-lg-12
+          #smart-button-container
+            div(style='text-align: center;')
+              #paypal-button-container
+
+block script 
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script.
+    $(".option").click(function () {
+    $(".option").removeClass("active");
+    $(this).addClass("active");
+    });
+  // Include the PayPal JavaScript SDK
+  script(src=`https://www.paypal.com/sdk/js?client-id=${paypalAPI}&currency=USD`)
+  script.
+    function initPayPalButton() {
+      paypal.Buttons(
+      {
+        style: {
+        shape: 'pill',
+        color: 'gold',
+        layout: 'vertical',
+        label: 'pay',
+      },
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: 
+          [
+            { "amount": 
+              { 
+                "currency_code": "USD", 
+                "value": #{plan.price},
+              } 
+            }
+          ]
+        });
+      },
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (orderData) {
+          // Full available details
+          const reservation = {
+            user_id: '#{reservation.user_id}',
+            phone_number: '#{reservation.phone_number}',
+            guests: '#{reservation.guests}',
+            check_in: '#{reservation.check_in}',
+            magicTown: '#{reservation.magicTown}',
+            plan_id: '#{reservation.plan_id}',
+          };
+
+          fetch(`${window.location.origin}/reservation/`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(reservation),
+          })
+          .then(res => res.json())
+          .then(data => console.log(data));
+
+          //console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+          // Show a success message within this page, e.g.
+          const element = document.getElementById('paypal-button-container');
+          element.innerHTML = '';
+          element.innerHTML = '<h3>Thank you for your payment!</h3>';
+
+          setTimeout(()=> {
+            window.location.href = `${window.location.origin}/reservation`;
+          }, 3000);
+        });
+      },
+      onError: function (err) {
+        console.log(err);
+      }
+      }).render('#paypal-button-container');
+    }
+    initPayPalButton();

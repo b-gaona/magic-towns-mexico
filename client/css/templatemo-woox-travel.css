@@ -774,6 +774,69 @@ Header Style
 Banner Style
 --------------------------------------------- 
 */
+.checkout-page-heading {
+  background-color: #222;
+  padding: 120px 0px 80px 0px;
+  text-align: center;
+}
+.checkout{
+  padding: 2rem;
+  background-color: white;
+  border-radius: 2.5rem;
+}
+.checkout h2{
+  font-size: 3rem;
+}
+.checkout h5,
+.checkout h2{
+  color: rgb(59, 59, 59) !important;
+}
+.checkout ul li{
+  list-style: circle;
+  text-align: left;
+}
+div.checkout p, 
+div.checkout h5{
+  text-align: left;
+  padding: 0;
+}
+div.checkout p{
+  margin-bottom: 1.5rem;
+  color: #646464 !important;
+}
+.checkout ul li p{
+  margin: 0;
+}
+.checkout__info{
+  padding-top: 2rem;
+}
+.checkout__info .col-lg-6{
+  display: flex;
+  justify-content: center;
+}
+.checkout__info .col-lg-12{
+  padding-top: 2rem;
+}
+#googleBtn{
+  width:100%;
+  background-color: white; 
+  background-image: url("https://www.gstatic.com/images/branding/product/1x/googleg_36dp.png"); 
+  background-repeat: no-repeat; 
+  background-position-x: 20px; 
+  background-size: 28px; 
+  background-position-y: 8px;
+  color: black;
+  text-align: center;
+  line-height: 2.6;
+
+  width: 55%;
+  height: 46px;
+  border-radius: 23px;
+  border: 1px solid #e0e0e0;
+}
+#googleBtn:hover{
+  color: black;
+}
 
 #section-1 {
   margin-top: 0px;

@@ -39,7 +39,30 @@ const findUser = async (req, res) => {
   return;
 };
 
+const saveOrFindUser = async (req, res) => {
+  const { displayName, given_name, family_name, id, email, verified } =
+    req.user;
+  if (verified) {
+    const [user, created] = await User.findOrCreate({
+      where: {
+        username: displayName,
+        email,
+        password: id,
+        name: given_name,
+        lastname: family_name,
+      },
+    });
+
+    if (user) {
+      req.session.user = user;
+      res.redirect("/");
+      return;
+    }
+  }
+};
+
 module.exports = {
   saveUser,
   findUser,
+  saveOrFindUser,
 };

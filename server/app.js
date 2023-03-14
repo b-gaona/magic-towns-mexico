@@ -5,6 +5,10 @@ const helmet = require("helmet");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 
+const passport = require("passport");
+require("./services/auth");
+const url = require("url");
+
 const path = require("path");
 
 const db = require("./config/dbConnection");
@@ -12,9 +16,20 @@ const api = require("./src/routes/api");
 
 const { getAllMagicTowns } = require("./src/models/magicTowns.model");
 
-const { saveUser, findUser } = require("./controllers/users.controller");
+const {
+  saveUser,
+  findUser,
+  saveOrFindUser,
+} = require("./controllers/users.controller");
+
 const { getAllPlans } = require("./controllers/plans.controller");
-const { saveReservation } = require("./controllers/reservations.controller");
+
+const {
+  saveReservation,
+  validateReservation,
+} = require("./controllers/reservations.controller");
+
+const Plan = require("./models/Plans");
 
 const app = express(helmet());
 
@@ -48,6 +63,21 @@ app.use(express.static(__dirname));
 
 app.use("/v1", api);
 
+app.use(passport.initialize());
+
+app.get(
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
+
+app.get(
+  "/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+  }),
+  saveOrFindUser
+);
+
 app.get("/", async (req, res) => {
   const session = req.session.user || false;
 
@@ -58,6 +88,7 @@ app.get("/", async (req, res) => {
     magicTowns: await getAllMagicTowns({ limit: 5, skip: 0 }),
     banners: await getAllMagicTowns({ limit: 4, skip: 100 }),
     session,
+    googleAPI: process.env.GOOGLE_API_KEY,
   });
 });
 
@@ -137,6 +168,7 @@ app.get("/reservation", async (req, res) => {
     session,
     plans,
     magicTowns,
+    googleAPI: process.env.GOOGLE_API_KEY,
   });
 });
 
@@ -173,8 +205,30 @@ app.get("/logout", (req, res) => {
   res.redirect("/");
 });
 
+app.get("/checkout", async (req, res) => {
+  const session = req.session.user || false;
+  const reservation = req.query;
+
+  if(!session){
+    res.redirect("/");
+  }
+  
+  const plan = await Plan.findOne({ where: { id: reservation.plan_id }});
+  
+  res.render(path.join(__dirname, "views", "checkout.pug"), {
+    siteName: "Descubre pueblos mágicos!",
+    page: "Compra",
+    selected: "",
+    session,
+    paypalAPI: process.env.PAYPAL_API_KEY,
+    reservation,
+    plan,
+  });
+});
+
 app.post("/register", saveUser);
 app.post("/login", findUser);
 app.post("/reservation", saveReservation);
+app.post("/checkout", validateReservation);
 
 module.exports = app;
