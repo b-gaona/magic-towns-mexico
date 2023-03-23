@@ -1,0 +1,60 @@
+extends ./layouts/index
+
+block content 
+  .visit-country(style="margin-top: 4rem;")
+    .container(style="padding-top: 4rem;")
+      .row
+        .col-lg-5.w-100
+          .section-heading(style="margin-bottom: 30px;")
+            h2.text-center Visita el pueblo mágico: 
+              span(style="padding-left: 1rem;") #{magicTown.magicTown}!
+      .row
+        .col-lg-12
+          .item
+            .row
+              .col-lg-6.col-sm-6
+                .swiper
+                  .swiper-wrapper
+                    each image in magicTown.images 
+                      .image.swiper-slide(style='height: 100%;')   
+                        img(src=`${image}` alt=`${magicTown.magicTown}` style='height: 100%; min-height: 28rem; object-fit: cover;' loading="lazy")
+                  .swiper-pagination  
+              .col-lg-6.col-sm-6.d-flex.align-items-center
+                .right-content
+                  h4(style="font-size: 2.5rem;") #{magicTown.magicTown.split(",")[0]}
+                  span(style="font-size: 1.5rem;") #{magicTown.state}, México
+                  p(style="font-size: 1rem;")
+                    | #{magicTown.description}
+                  ul.info.d-flex.flex-column.gap-3
+                    li(style="text-align: left; font-size: 1rem;")
+                      i.fa.fa-user
+                      |  #{magicTown.population} habitantes
+                    li(style="text-align: left; font-size: 1rem;")
+                      i.fa.fa-globe
+                      |  La: #{magicTown.latitude}
+                    li(style="text-align: left; font-size: 1rem;")
+                      i.fa.fa-globe
+                      |  Lo: #{magicTown.longitude}
+        .col-lg-12.pb-5.pt-3
+          .main-button.text-center
+              a(href='/magicTowns') Ver más pueblos mágicos
+
+block script
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script(src='https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js')
+  script.
+    const swiper = new Swiper('.swiper', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+      },
+      autoplay: {
+        delay: 5000,
+      },
+    });

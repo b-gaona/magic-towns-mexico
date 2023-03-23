@@ -1,0 +1,37 @@
+extends ./layouts/index
+
+block content 
+  .visit-country(style="margin-top: 4rem;")
+    .container(style="padding-top: 5rem;")
+      .row
+        .col-lg-5.w-100
+          .section-heading
+            h2.text-center Visita uno de nuestros pueblos mágicos ahora!
+            p#visit-heading.text-center
+              | Un Pueblo Mágico es un sitio con símbolos y leyendas, poblados con historia que en muchos casos han sido escenario de hechos trascendentes para México.
+      .row.pb-5
+        include ./layouts/magicTown.pug
+        .col-lg-12
+          ul.page-numbers
+            li
+              a(href='#visit-heading' data-page="1")
+                i.fa.fa-arrow-left
+            li.active
+              a(href='#visit-heading' data-page="1") 1
+            li
+              a(href='#visit-heading' data-page="2") 2
+            li
+              a(href='#visit-heading' data-page="3") 3
+            li
+              a(href='#visit-heading' data-page="2")
+                i.fa.fa-arrow-right
+
+block script
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
+  script(src='../../build/js/app.js')

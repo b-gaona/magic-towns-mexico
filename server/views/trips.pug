@@ -1,0 +1,35 @@
+extends ./layouts/index
+
+block content 
+  .page-heading(style="padding-top: 130px; background-attachment: fixed;")
+    .container
+      .row
+        .col-lg-12
+          h2 Mis viajes
+        .col-lg-12
+          h3 ¡Visualiza los servicios que has contratado!
+      .row 
+        each trip in trips
+          div(style="background-color: #222; border-radius: 2rem; max-width: 70%; margin: 1.5rem auto; padding-block: 1.5rem; display: grid; grid-template-columns: repeat(2, 1fr);")
+            div
+              p(style="font-size: 1.3rem; font-weight: 700;") Número de teléfono: 
+                span(style="font-size: 1.1rem; font-weight: 400; padding-left: 0.5rem;") #{trip.phone_number}
+              p(style="font-size: 1.3rem; font-weight: 700;") Número de integrantes: 
+                span(style="font-size: 1.1rem; font-weight: 400; padding-left: 0.5rem;") #{trip.guests}
+            div
+              p(style="font-size: 1.3rem; font-weight: 700;") Fecha de inicio: 
+                span(style="font-size: 1.1rem; font-weight: 400; padding-left: 0.5rem;") #{trip.check_in}
+              p(style="font-size: 1.3rem; font-weight: 700;") Plan: 
+                span(style="font-size: 1.1rem; font-weight: 400; padding-left: 0.5rem;") #{plans.find(plan => plan.id == trip.plan_id).plan}
+            div(style="grid-column: 1/3; padding-top: 1.5rem;")
+              p(style="font-size: 1.3rem; font-weight: 700;") Pueblo mágico: 
+                span(style="font-size: 1.1rem; font-weight: 400; padding-left: 0.5rem;") #{trip.magicTown}
+     
+block script 
+  script(src='../build/vendor/jquery/jquery.min.js')
+  script(src='../build/vendor/bootstrap/js/bootstrap.min.js')
+  script(src='../build/js/isotope.min.js')
+  script(src='../build/js/owl-carousel.js')
+  script(src='../build/js/tabs.js')
+  script(src='../build/js/popup.js')
+  script(src='../build/js/custom.js')
