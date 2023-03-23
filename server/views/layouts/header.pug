@@ -35,8 +35,14 @@ header.header-area.header-sticky
               else 
                 a(href='/reservation') Reservaciones
             if session
-              li 
-                a(href='/logout') Cerrar sesión
+              li
+                if selected == 'trips'
+                  a.active(href='/trips') Mis viajes
+                else 
+                  li
+                    a(href='/trips') Mis viajes
+                li 
+                  a(href='/logout') Cerrar sesión
             else
               li
                 if selected == 'login/register'
