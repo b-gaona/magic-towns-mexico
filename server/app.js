@@ -14,7 +14,10 @@ const path = require("path");
 const db = require("./config/dbConnection");
 const api = require("./src/routes/api");
 
-const { getAllMagicTowns } = require("./src/models/magicTowns.model");
+const {
+  getAllMagicTowns,
+  getOneMagicTown,
+} = require("./src/models/magicTowns.model");
 
 const {
   saveUser,
@@ -30,6 +33,7 @@ const {
 } = require("./controllers/reservations.controller");
 
 const Plan = require("./models/Plans");
+const Reservation = require("./models/Reservations");
 
 const app = express(helmet());
 
@@ -177,6 +181,7 @@ app.get("/login", (req, res) => {
 
   if (session) {
     res.redirect("/");
+    return;
   } else {
     res.render(path.join(__dirname, "views", "login.pug"), {
       siteName: "Descubre pueblos mágicos!",
@@ -191,6 +196,7 @@ app.get("/register", (req, res) => {
 
   if (session) {
     res.redirect("/");
+    return;
   } else {
     res.render(path.join(__dirname, "views", "register.pug"), {
       siteName: "Descubre pueblos mágicos!",
@@ -209,8 +215,9 @@ app.get("/checkout", async (req, res) => {
   const session = req.session.user || false;
   const reservation = req.query;
 
-  if (!session) {
+  if (!session || isNaN(reservation.plan_id)) {
     res.redirect("/");
+    return;
   }
 
   const plan = await Plan.findOne({ where: { id: reservation.plan_id } });
@@ -223,6 +230,66 @@ app.get("/checkout", async (req, res) => {
     paypalAPI: process.env.PAYPAL_API_KEY,
     reservation,
     plan,
+  });
+});
+
+app.get("/magicTowns", async (req, res) => {
+  const session = req.session.user || false;
+
+  res.render(path.join(__dirname, "views", "allTowns.pug"), {
+    siteName: "Descubre pueblos mágicos!",
+    page: "Pueblos mágicos",
+    selected: "",
+    session,
+    magicTowns: await getAllMagicTowns({ skip: 0, limit: 10 }),
+  });
+});
+
+app.get("/magicTowns/:id", async (req, res) => {
+  const { id } = req.params;
+  const session = req.session.user || false;
+
+  if (
+    isNaN(id) ||
+    id > (await getAllMagicTowns({ skip: 0, limit: "" })).length
+  ) {
+    res.redirect("/");
+    return;
+  }
+
+  const magicTown = await getOneMagicTown(id);
+
+  res.render(path.join(__dirname, "views", "magicTown.pug"), {
+    siteName: "Descubre pueblos mágicos!",
+    page: magicTown.magicTown,
+    selected: "",
+    session,
+    magicTown,
+  });
+});
+
+app.get("/trips", async (req, res) => {
+  const session = req.session.user || false;
+
+  if (!session) {
+    res.redirect("/");
+    return;
+  }
+
+  const trips = await Reservation.findAll({
+    where: { user_id: session.id },
+    order: [["check_in", "ASC"]],
+  });
+
+  const plans = await Plan.findAll({});
+
+  res.render(path.join(__dirname, "views", "trips.pug"), {
+    siteName: "Descubre pueblos mágicos!",
+    page: "Mis viajes",
+    selected: "trips",
+    session,
+    trips,
+    plans,
   });
 });
 
