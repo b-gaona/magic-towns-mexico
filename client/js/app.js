@@ -1,6 +1,6 @@
 const paginators = document.querySelectorAll("li a[href='#visit-heading']");
 
-let limit = 5;
+let limit = window.location.pathname == "/magicTowns" ? 15: 5;
 let page = 1;
 let maxPage = 1;
 let total;
@@ -10,27 +10,25 @@ document.addEventListener("DOMContentLoaded", async () => {
   await getTotalPages();
 
   //Initialize the map once you have all the records
-  window.initMap = initMap(magicTowns);
-  //Get the shortest magic town
-  getUserPosition();
+  if(document.querySelector("#map")){
+    window.initMap = initMap(magicTowns);
+    //Get the shortest magic town
+    getUserPosition();
+  }
 
-  paginators[0].style.display = "none";
+  if(paginators){
+    paginators[0].style.display = "none";
 
-  paginators.forEach((paginator) => {
-    paginator.addEventListener("click", async () => {
-      page = paginator.dataset.page;
-      updatePaginator(page);
+    paginators.forEach((paginator) => {
+      paginator.addEventListener("click", async () => {
+        page = paginator.dataset.page;
+        updatePaginator(page);
 
-      const magicTowns = await getMagicTowns();
-      fillGrid(magicTowns);
-    });
-  });
-
-  //Remove the map's popup
-  setTimeout(() => {
-    document.querySelector("#map").children[1].remove();
-    document.querySelector("#map").children[1].remove();
-  }, 1000);
+        const magicTowns = await getMagicTowns();
+        fillGrid(magicTowns);
+      });
+    });  
+  }
 });
 
 //Functions
@@ -50,7 +48,7 @@ function fillGrid(magicTowns) {
         <div class="row">
           <div class="col-lg-4 col-sm-5">
             <div class="image" style='height: 100%'>
-              <img src='${magicTown.images[0]}' alt='${
+              <img loading="lazy" src='${magicTown.images[0]}' alt='${
       magicTown.magicTown
     }' style='height: 100%; object-fit: cover;'>
             </div>
@@ -60,7 +58,7 @@ function fillGrid(magicTowns) {
               <h4>${magicTown.magicTown.split(",")[0]}</h4>
               <span>${magicTown.state}, México</span>
               <div class="main-button">
-                <a href="${magicTown.wiki}" target="_blank" rel="noreferrer">Conocer más</a>
+                <a href="/magicTowns/${magicTown.id}">Conocer más</a>
               </div>
               <p>${magicTown.description}</p>
               <ul class="info">
@@ -71,7 +69,7 @@ function fillGrid(magicTowns) {
                 <li><i class="fa fa-globe"></i> Lo: ${magicTown.longitude}</li>
               </ul>
               <div class="text-button">
-                <a href="about.html">¿Sabes cómo llegar?<i class="fa fa-arrow-right"></i></a>
+                <a href="${magicTown.wiki}" target="_blank" rel="noreferrer">¿Sabes cómo llegar?<i class="fa fa-arrow-right"></i></a>
               </div>
             </div>
           </div>
