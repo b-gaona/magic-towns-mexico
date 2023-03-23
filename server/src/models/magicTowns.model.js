@@ -43,6 +43,18 @@ async function getAllMagicTowns({ skip, limit }) {
     .sort({ id: "asc" });
 }
 
+async function getOneMagicTown(id) {
+  return await magicTowns.findOne({ id });
+}
+
+async function getMagicTownByKeyword(keyword) {
+  return await magicTowns.find({
+    $text: {
+      $search: keyword,
+    },
+  });
+}
+
 async function saveMagicTown(town) {
   try {
     await magicTowns.updateOne(
@@ -62,4 +74,6 @@ async function saveMagicTown(town) {
 module.exports = {
   loadMagicTownsData,
   getAllMagicTowns,
+  getOneMagicTown,
+  getMagicTownByKeyword,
 };

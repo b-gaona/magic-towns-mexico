@@ -40,4 +40,6 @@ const magicTownsSchema = new mongoose.Schema({
   },
 });
 
+magicTownsSchema.index({ magicTown: "text", state: "text" });
+
 module.exports = mongoose.model("Magic-Town", magicTownsSchema);
