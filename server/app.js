@@ -55,7 +55,7 @@ app.use(session({ secret: "myKey", resave: true, saveUninitialized: true }));
 
 app.use(
   cors({
-    origin: "http://localhost:3000/", //This server can do requests to the server, it's like a whitelist
+    origin: "https://magic-towns.onrender.com/", //This server can do requests to the server, it's like a whitelist
   })
 ); //To allow cross origin
 
