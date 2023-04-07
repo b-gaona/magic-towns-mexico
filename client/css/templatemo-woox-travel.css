@@ -840,7 +840,12 @@ div.checkout p{
 #googleBtn:hover{
   color: black;
 }
-
+@media (max-width: 767px) {
+  #googleBtn{
+    width: 80%;
+    padding-left: 2.5rem;
+  }
+}
 #section-1 {
   margin-top: 0px;
   height: 100vh;
